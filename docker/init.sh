@@ -4,7 +4,11 @@ export PATH="${NVM_DIR}/versions/node/v${NODE_VERSION_DEVELOP}/bin/:${PATH}"
 
 if [ ! -f "/home/frappe/frappe-bench/Procfile" ]; then
     echo "Creating new bench..."
-    bench init --skip-redis-config-generation frappe-bench
+    # bench refuses to init an existing directory (even empty), so init to a temp
+    # path then copy into the volume-backed directory
+    bench init --skip-redis-config-generation frappe-bench-init
+    cp -a /home/frappe/frappe-bench-init/. /home/frappe/frappe-bench/
+    rm -rf /home/frappe/frappe-bench-init
 fi
 
 cd frappe-bench
