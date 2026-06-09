@@ -88,7 +88,7 @@ const identifyUserPersona = async () => {
 		let courseCount = await call('frappe.client.get_count', {
 			doctype: 'LMS Course',
 			filters: {
-				title: ['not like', '%A guide to Frappe Learning%'],
+				title: ['not like', '%A guide to Veraxity LMS%'],
 			},
 		})
 		if (!courseCount) {
