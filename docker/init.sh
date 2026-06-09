@@ -2,7 +2,7 @@
 
 export PATH="${NVM_DIR}/versions/node/v${NODE_VERSION_DEVELOP}/bin/:${PATH}"
 
-if [ ! -d "/home/frappe/frappe-bench" ]; then
+if [ ! -f "/home/frappe/frappe-bench/Procfile" ]; then
     echo "Creating new bench..."
     bench init --skip-redis-config-generation frappe-bench
 fi
@@ -19,16 +19,16 @@ bench set-redis-socketio-host redis://redis:6379
 sed -i '/redis/d' ./Procfile
 sed -i '/^watch:/d' ./Procfile
 
-if [ ! -d "/home/frappe/frappe-bench/apps/payments" ]; then
+if [ ! -f "/home/frappe/frappe-bench/apps/payments/setup.py" ] && [ ! -f "/home/frappe/frappe-bench/apps/payments/pyproject.toml" ]; then
     bench get-app payments
 fi
 
-if [ ! -d "/home/frappe/frappe-bench/apps/lms" ]; then
+if [ ! -f "/home/frappe/frappe-bench/apps/lms/hooks.py" ]; then
     ln -sf /workspace/lms /home/frappe/frappe-bench/apps/lms
     /home/frappe/frappe-bench/env/bin/pip install -q -e /home/frappe/frappe-bench/apps/lms
 fi
 
-if [ ! -d "/home/frappe/frappe-bench/sites/lms.localhost" ]; then
+if [ ! -f "/home/frappe/frappe-bench/sites/lms.localhost/site_config.json" ]; then
     echo "Creating site lms.localhost..."
     bench new-site lms.localhost \
     --force \
