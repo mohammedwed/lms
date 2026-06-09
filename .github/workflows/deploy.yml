@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd /opt/lms
+            git pull origin develop
+            docker exec lms-frappe-1 bash -c "
+              cd /home/frappe/frappe-bench &&
+              bench --site lms.localhost migrate &&
+              NODE_OPTIONS='--max-old-space-size=3072' bench build --app lms &&
+              bench restart
+            "

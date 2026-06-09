@@ -24,7 +24,8 @@ if [ ! -d "/home/frappe/frappe-bench/apps/payments" ]; then
 fi
 
 if [ ! -d "/home/frappe/frappe-bench/apps/lms" ]; then
-    bench get-app lms
+    ln -sf /workspace/lms /home/frappe/frappe-bench/apps/lms
+    /home/frappe/frappe-bench/env/bin/pip install -q -e /home/frappe/frappe-bench/apps/lms
 fi
 
 if [ ! -d "/home/frappe/frappe-bench/sites/lms.localhost" ]; then
