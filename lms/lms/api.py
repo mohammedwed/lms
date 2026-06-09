@@ -2416,7 +2416,7 @@ def get_badges(member: str):
 @frappe.whitelist()
 def clear_demo_data():
 	frappe.only_for("Moderator")
-	quiz_title = "Do you know Frappe Learning?"
+	quiz_title = "Do you know Veraxity LMS?"
 	if frappe.db.exists("LMS Quiz", {"title": quiz_title}):
 		frappe.db.delete("LMS Quiz", {"title": quiz_title})
 
