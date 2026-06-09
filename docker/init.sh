@@ -7,7 +7,10 @@ if [ ! -f "/home/frappe/frappe-bench/Procfile" ]; then
     # bench refuses to init an existing directory (even empty), so init to a temp
     # path then copy into the volume-backed directory
     bench init --skip-redis-config-generation frappe-bench-init
+    echo "Copying bench to persistent location..."
     cp -a /home/frappe/frappe-bench-init/. /home/frappe/frappe-bench/
+    echo "Fixing virtualenv paths..."
+    grep -rIl 'frappe-bench-init' /home/frappe/frappe-bench | xargs -r sed -i 's|frappe-bench-init|frappe-bench|g'
     rm -rf /home/frappe/frappe-bench-init
 fi
 
