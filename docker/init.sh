@@ -55,10 +55,9 @@ else
     echo "Site lms.localhost already exists, skipping site creation"
 fi
 
-# Build the Vue frontend first (vite), then the Frappe asset pipeline
+# Build Vue frontend then run Frappe asset pipeline
 echo "Building LMS frontend..."
 cd /workspace/frontend && NODE_OPTIONS="--max-old-space-size=2048" yarn build
-cd /home/frappe/frappe-bench
-NODE_OPTIONS="--max-old-space-size=2048" bench build --app lms
+cd /home/frappe/frappe-bench && NODE_OPTIONS="--max-old-space-size=2048" bench build --app lms
 
 bench start

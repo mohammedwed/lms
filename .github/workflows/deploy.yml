@@ -24,5 +24,6 @@ jobs:
               cd /home/frappe/frappe-bench &&
               NODE_OPTIONS='--max-old-space-size=2048' bench build --app lms &&
               bench --site lms.localhost migrate &&
-              bench restart
+              bench --site lms.localhost clear-cache
             "
+            cd /opt/lms/docker && docker compose restart frappe
