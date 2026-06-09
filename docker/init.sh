@@ -30,9 +30,12 @@ if [ ! -f "/home/frappe/frappe-bench/apps/payments/setup.py" ] && [ ! -f "/home/
     bench get-app payments
 fi
 
-if [ ! -f "/home/frappe/frappe-bench/apps/lms/hooks.py" ]; then
-    ln -sf /workspace/lms /home/frappe/frappe-bench/apps/lms
+if [ ! -f "/home/frappe/frappe-bench/apps/lms/pyproject.toml" ]; then
+    # Symlink repo root (has pyproject.toml + lms/ module), not the lms/ subdirectory
+    ln -sf /workspace /home/frappe/frappe-bench/apps/lms
     /home/frappe/frappe-bench/env/bin/pip install -q -e /home/frappe/frappe-bench/apps/lms
+    # Register lms in apps.txt so bench commands can find it
+    grep -q "^lms$" sites/apps.txt || printf "\nlms" >> sites/apps.txt
 fi
 
 if [ ! -f "/home/frappe/frappe-bench/sites/lms.localhost/site_config.json" ]; then
@@ -41,7 +44,7 @@ if [ ! -f "/home/frappe/frappe-bench/sites/lms.localhost/site_config.json" ]; th
     --force \
     --mariadb-root-password 123 \
     --admin-password admin \
-    --no-mariadb-socket
+    --mariadb-user-host-login-scope='%'
 
     bench --site lms.localhost install-app payments
     bench --site lms.localhost install-app lms
