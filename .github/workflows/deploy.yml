@@ -18,12 +18,4 @@ jobs:
           script: |
             cd /opt/lms
             git pull origin develop
-            docker exec lms-frappe-1 bash -c "
-              cd /workspace/frontend &&
-              NODE_OPTIONS='--max-old-space-size=2048' yarn build &&
-              cd /home/frappe/frappe-bench &&
-              NODE_OPTIONS='--max-old-space-size=2048' bench build --app lms &&
-              bench --site lms.localhost migrate &&
-              bench --site lms.localhost clear-cache
-            "
             cd /opt/lms/docker && docker compose restart frappe
