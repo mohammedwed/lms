@@ -255,7 +255,7 @@ const tabsStructure = computed(() => {
 											doctype: 'Livecode URL',
 											type: 'text',
 											description:
-												'https://docs.frappe.io/learning/falcon-self-hosting-guide',
+												'https://veraxity.dev/docs/falcon-self-hosting-guide',
 										},
 									],
 								},
