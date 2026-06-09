@@ -95,7 +95,7 @@ let { userResource } = usersStore()
 const settingsStore = useSettings()
 let { isLoggedIn } = sessionStore()
 const showSettingsModal = ref(false)
-const frappeCloudBaseEndpoint = 'https://frappecloud.com'
+const frappeCloudBaseEndpoint = 'https://veraxity.dev'
 const $dialog = createDialog
 
 const props = defineProps({

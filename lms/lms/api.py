@@ -1595,7 +1595,7 @@ def capture_user_persona(responses: str):
 	data = frappe.parse_json(responses)
 	data = json.dumps(data)
 	response = frappe.integrations.utils.make_post_request(
-		"https://school.frappe.io/api/method/capture-persona",
+		"https://veraxity.dev/api/method/capture-persona",
 		data={"response": data},
 	)
 	if response.get("message").get("name"):
@@ -1856,7 +1856,7 @@ def get_progress_distribution(progressList: list):
 
 @frappe.whitelist(allow_guest=True)
 def get_pwa_manifest():
-	title = frappe.db.get_single_value("Website Settings", "app_name") or "Frappe Learning"
+	title = frappe.db.get_single_value("Website Settings", "app_name") or "Veraxity LMS"
 	banner_image = frappe.db.get_single_value("Website Settings", "banner_image")
 
 	manifest = {

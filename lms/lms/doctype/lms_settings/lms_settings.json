@@ -91,7 +91,7 @@
 	],
 	"fields": [
 		{
-			"default": "https://falcon.frappe.io",
+			"default": "https://veraxity.dev",
 			"fieldname": "livecode_url",
 			"fieldtype": "Data",
 			"label": "LiveCode URL"

@@ -64,7 +64,7 @@ class LMSCourse(Document):
 		if self.paid_course:
 			installed_apps = frappe.get_installed_apps()
 			if "payments" not in installed_apps:
-				documentation_link = "https://docs.frappe.io/learning/setting-up-payment-gateway"
+				documentation_link = "https://veraxity.dev/docs/setting-up-payment-gateway"
 				frappe.throw(
 					_(
 						"Please install the Payments App to create a paid course. Refer to the documentation for more details. {0}"
