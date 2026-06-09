@@ -55,8 +55,10 @@ else
     echo "Site lms.localhost already exists, skipping site creation"
 fi
 
-# Always build the frontend — dist is ephemeral and lost on container restart
+# Build the Vue frontend first (vite), then the Frappe asset pipeline
 echo "Building LMS frontend..."
-NODE_OPTIONS="--max-old-space-size=3072" bench build --app lms
+cd /workspace/frontend && NODE_OPTIONS="--max-old-space-size=2048" yarn build
+cd /home/frappe/frappe-bench
+NODE_OPTIONS="--max-old-space-size=2048" bench build --app lms
 
 bench start
