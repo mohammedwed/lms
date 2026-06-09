@@ -50,9 +50,16 @@ export default defineConfig(async ({ mode }) => {
 			allowedHosts: true,
 		},
 		resolve: {
-			alias: {
-				'@': path.resolve(__dirname, 'src'),
-			},
+			alias: [
+				{
+					find: /^.*\/sites\/common_site_config\.json$/,
+					replacement: path.resolve(__dirname, 'common_site_config.json'),
+				},
+				{
+					find: '@',
+					replacement: path.resolve(__dirname, 'src'),
+				},
+			],
 		},
 		optimizeDeps: {
 			include: [
