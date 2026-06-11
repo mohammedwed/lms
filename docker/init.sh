@@ -55,6 +55,13 @@ else
     echo "Site lms.localhost already exists, skipping site creation"
 fi
 
+bench --site lms.localhost set-config host_name "https://lms.veraxity.dev"
+
+# Prevent Frappe from appending the internal webserver_port (8000) to
+# generated URLs (e.g. Connected App redirect_uri) - Caddy fronts the site
+# on 443 without exposing 8000.
+bench set-config -g restart_supervisor_on_update 1
+
 # Build frontend assets (bench build triggers the Vue/vite build internally)
 echo "Building LMS frontend..."
 export NODE_OPTIONS="--max-old-space-size=2048"
