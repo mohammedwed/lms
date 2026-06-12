@@ -60,7 +60,7 @@ class BaseTestUtils(UnitTestCase):
 		course.update(
 			{
 				"title": title,
-				"short_introduction": "A course to test utilities of Frappe Learning",
+				"short_introduction": "A course to test utilities of Veraxity LMS",
 				"description": "This is a detailed description of the Utility Course.",
 				"tags": "Frappe,Learning,Utility",
 				"category": "Business",

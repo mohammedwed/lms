@@ -4,13 +4,13 @@ from . import __version__ as app_version
 
 app_name = "frappe_lms"
 app_title = "Learning"
-app_publisher = "Frappe"
-app_description = "Open Source Learning Management System built with Frappe Framework"
+app_publisher = "Veraxity"
+app_description = "Open Source Learning Management System by Veraxity"
 app_icon_url = "/assets/lms/images/lms-logo.png"
 app_icon_title = "Learning"
 app_icon_route = "/lms"
 app_color = "grey"
-app_email = "jannat@frappe.io"
+app_email = "support@veraxity.dev"
 app_license = "AGPL"
 required_apps = ["frappe/payments"]
 

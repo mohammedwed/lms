@@ -24,9 +24,21 @@ services:
     working_dir: /home/frappe
     volumes:
       - .:/workspace
+
+  caddy:
+    image: caddy:alpine
+    restart: unless-stopped
     ports:
-      - 8000:8000
-      - 9000:9000
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - frappe
 
 volumes:
   mariadb-data:
+  caddy-data:
+  caddy-config:

@@ -4,7 +4,7 @@
 		:class="sidebarStore.isSidebarCollapsed ? 'w-14' : 'w-56'"
 	>
 		<div
-			class="flex flex-col overflow-y-auto"
+			class="flex flex-col overflow-y-auto flex-1 min-h-0"
 			:class="sidebarStore.isSidebarCollapsed ? 'items-center' : ''"
 		>
 			<UserDropdown :isCollapsed="sidebarStore.isSidebarCollapsed" />
@@ -201,7 +201,7 @@
 							"
 						/>
 					</Tooltip>
-					<Tooltip :text="__('Powered by Frappe Learning')">
+					<Tooltip :text="__('Powered by Veraxity')">
 						<Zap
 							class="size-4 stroke-1.5 text-ink-gray-7 cursor-pointer"
 							@click="redirectToWebsite()"
@@ -232,13 +232,13 @@
 			v-model="showHelpModal"
 			v-model:articles="articles"
 			appName="learning"
-			title="Frappe Learning"
+			title="Veraxity LMS"
 			:logo="LMSLogo"
 			:afterSkip="(step) => capture('onboarding_step_skipped_' + step)"
 			:afterSkipAll="() => capture('onboarding_steps_skipped')"
 			:afterReset="(step) => capture('onboarding_step_reset_' + step)"
 			:afterResetAll="() => capture('onboarding_steps_reset')"
-			docsLink="https://docs.frappe.io/learning"
+			docsLink="https://veraxity.dev/docs"
 		/>
 		<IntermediateStepModal
 			v-model="showIntermediateModal"
@@ -678,7 +678,7 @@ const updateSidebarLinks = () => {
 }
 
 const redirectToWebsite = () => {
-	window.open('https://frappe.io/learning', '_blank')
+	window.open('https://veraxity.dev', '_blank')
 }
 
 const isStudent = computed(() => {
