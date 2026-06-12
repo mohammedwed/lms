@@ -1,0 +1,9 @@
+2026-06-12 16:48:38,977 - INFO - Running Production Setup
+2026-06-12 16:49:15,543 - INFO - Docker Compose file generated at ~/learning_prod_setup-compose.yml
+2026-06-12 16:50:32,489 - ERROR - Bench site creation failed for lms.veraxity.dev
+Traceback (most recent call last):
+  File "/opt/lms/docker/./easy-install.py", line 474, in create_site
+    subprocess.run(
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['docker', 'compose', '-p', 'learning_prod_setup', 'exec', 'backend', 'bench', 'new-site', '--no-mariadb-socket', '--db-root-password=28dbb4125', '--admin-password=51b7e4529070', '--install-app', 'lms', 'lms.veraxity.dev']' returned non-zero exit status 1.

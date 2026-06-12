@@ -23,12 +23,19 @@
 lms.veraxity.dev {
 	# Frappe realtime / Socket.io WebSocket
 	handle /socket.io/* {
-		reverse_proxy frappe:9000
+		reverse_proxy frappe:9000 {
+			header_up Upgrade websocket
+			header_up Connection upgrade
+			header_up X-Real-IP {http.request.remote.host}
+			header_up X-Forwarded-For {http.request.remote.host}
+			header_up X-Forwarded-Proto {scheme}
+		}
 	}
-
 	# Everything else to the Frappe web server
 	reverse_proxy frappe:8000 {
 		header_up Host {host}
 		header_up X-Forwarded-Proto {scheme}
+		header_up X-Real-IP {http.request.remote.host}
+		header_up X-Forwarded-For {http.request.remote.host}
 	}
 }
