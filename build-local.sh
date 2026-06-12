@@ -8,8 +8,8 @@ if [ ! -d "frappe_docker" ]; then
     git clone https://github.com/frappe/frappe_docker.git
 fi
 
-# Write apps.json directly into the build context
-cat > frappe_docker/images/layered/apps.json <<EOF
+# Write apps.json directly into the build context root
+cat > frappe_docker/apps.json <<EOF
 [
     {"url": "https://github.com/frappe/payments", "branch": "version-16"},
     {"url": "https://github.com/mohammedwed/lms", "branch": "feature/veraxity-branding"}
@@ -27,7 +27,7 @@ docker buildx build \
   --tag=ghcr.io/mohammedwed/lms:stable \
   --file=frappe_docker/images/layered/Containerfile \
   --load \
-  frappe_docker/images/layered
+  frappe_docker
 
 echo ""
 echo "✅ Build complete!"
