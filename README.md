@@ -109,7 +109,7 @@ export SITES_RULE="Host(\`subdomain.domain.tld\`)"
 python3 ./easy-install.py deploy \
     --project=learning_prod_setup \
     --email=your_email.example.com \
-    --image=ghcr.io/mohammedwed/simple-lms:stable \
+    --image=ghcr.io/mohammedwed/simple-lms \
     --version=stable \
     --app=lms \
     --sitename subdomain.domain.tld
