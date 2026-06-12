@@ -8,27 +8,26 @@ if [ ! -d "frappe_docker" ]; then
     git clone https://github.com/frappe/frappe_docker.git
 fi
 
-# Write apps.json as a file (required for BuildKit secret mount)
-APPS_JSON_FILE=$(mktemp)
-cat > "$APPS_JSON_FILE" <<EOF
+# Write apps.json directly into the build context
+cat > frappe_docker/images/layered/apps.json <<EOF
 [
     {"url": "https://github.com/frappe/payments", "branch": "version-16"},
     {"url": "https://github.com/mohammedwed/lms", "branch": "feature/veraxity-branding"}
 ]
 EOF
 
+# Patch the Containerfile to use COPY instead of secret mounting
+sed -i 's/RUN --mount=type=secret,id=apps_json,target=\/opt\/frappe\/apps.json,uid=1000,gid=1000 \\/COPY apps.json \/opt\/frappe\/apps.json\nRUN \\/g' frappe_docker/images/layered/Containerfile
+
 echo "Building Docker image..."
 docker buildx build \
   --no-cache \
-  --secret id=apps_json,src="$APPS_JSON_FILE" \
   --build-arg=FRAPPE_PATH=https://github.com/frappe/frappe \
   --build-arg=FRAPPE_BRANCH=version-16 \
   --tag=ghcr.io/mohammedwed/lms:stable \
   --file=frappe_docker/images/layered/Containerfile \
   --load \
-  frappe_docker
-
-rm -f "$APPS_JSON_FILE"
+  frappe_docker/images/layered
 
 echo ""
 echo "✅ Build complete!"
