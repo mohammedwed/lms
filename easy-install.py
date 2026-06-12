@@ -100,6 +100,7 @@ def write_to_env(
         f"LETSENCRYPT_EMAIL={email}\n",
         f"SITE_ADMIN_PASS={admin_pass}\n",
         f"SITES={quoted_sites}\n",
+        f"SITES_RULE=Host({quoted_sites})\n",
         "PULL_POLICY=missing\n",
         f'BACKUP_CRONSTRING="{cronstring}"\n',
     ]
