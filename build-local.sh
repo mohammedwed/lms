@@ -17,8 +17,9 @@ APPS_JSON_BASE64=$(echo ${APPS_JSON} | base64 -w 0)
 
 echo "Building Docker image..."
 docker build \
+  --no-cache \
   --build-arg=FRAPPE_PATH=https://github.com/frappe/frappe \
-  --build-arg=FRAPPE_BRANCH=version-16 \
+  --build-arg=FRAPPE_BRANCH=version-15 \
   --build-arg=APPS_JSON_BASE64=${APPS_JSON_BASE64} \
   --tag=ghcr.io/mohammedwed/lms:stable \
   --file=frappe_docker/images/layered/Containerfile \
