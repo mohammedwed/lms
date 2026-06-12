@@ -106,11 +106,16 @@ wget https://frappe.io/easy-install.py
 python3 ./easy-install.py deploy \
     --project=learning_prod_setup \
     --email=your_email.example.com \
-    --image=ghcr.io/frappe/lms \
+    --image=ghcr.io/mohammedwed/simple-lms:stable \
     --version=stable \
     --app=lms \
     --sitename subdomain.domain.tld
 ```
+
+Alternatively, if you prefer to deploy using Docker Compose manually without the `easy-install.py` script:
+1. Navigate to `docker/production/` in your cloned repository.
+2. Copy `.env.example` to `.env` and configure your settings.
+3. Run `bash deploy.sh` to start the production stack.
 
 Replace the following parameters with your values:
 - `your_email.example.com`: Your email address
