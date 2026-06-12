@@ -12,7 +12,7 @@ fi
 APPS_JSON_FILE=$(mktemp)
 cat > "$APPS_JSON_FILE" <<EOF
 [
-    {"url": "https://github.com/frappe/payments", "branch": "version-15"},
+    {"url": "https://github.com/frappe/payments", "branch": "version-16"},
     {"url": "https://github.com/mohammedwed/lms", "branch": "feature/veraxity-branding"}
 ]
 EOF
@@ -22,7 +22,7 @@ DOCKER_BUILDKIT=1 docker build \
   --no-cache \
   --secret id=apps_json,src="$APPS_JSON_FILE" \
   --build-arg=FRAPPE_PATH=https://github.com/frappe/frappe \
-  --build-arg=FRAPPE_BRANCH=version-15 \
+  --build-arg=FRAPPE_BRANCH=version-16 \
   --tag=ghcr.io/mohammedwed/lms:stable \
   --file=frappe_docker/images/layered/Containerfile \
   frappe_docker
