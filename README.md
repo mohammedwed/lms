@@ -103,6 +103,9 @@ wget https://frappe.io/easy-install.py
 **Step 2**: Run the deployment command
 
 ```bash
+# Export the SITES_RULE for Traefik routing (replace subdomain.domain.tld)
+export SITES_RULE="Host(\`subdomain.domain.tld\`)"
+
 python3 ./easy-install.py deploy \
     --project=learning_prod_setup \
     --email=your_email.example.com \
