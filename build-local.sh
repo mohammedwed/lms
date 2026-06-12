@@ -8,22 +8,26 @@ if [ ! -d "frappe_docker" ]; then
     git clone https://github.com/frappe/frappe_docker.git
 fi
 
-# Define the apps we want to include in the image
-APPS_JSON='[
-    {"url": "https://github.com/frappe/payments","branch": "version-15"},
-    {"url": "https://github.com/mohammedwed/lms","branch": "feature/veraxity-branding"}
-]'
-APPS_JSON_BASE64=$(echo ${APPS_JSON} | base64 -w 0)
+# Write apps.json as a file (required for BuildKit secret mount)
+APPS_JSON_FILE=$(mktemp)
+cat > "$APPS_JSON_FILE" <<EOF
+[
+    {"url": "https://github.com/frappe/payments", "branch": "version-15"},
+    {"url": "https://github.com/mohammedwed/lms", "branch": "feature/veraxity-branding"}
+]
+EOF
 
 echo "Building Docker image..."
-docker build \
+DOCKER_BUILDKIT=1 docker build \
   --no-cache \
+  --secret id=apps_json,src="$APPS_JSON_FILE" \
   --build-arg=FRAPPE_PATH=https://github.com/frappe/frappe \
   --build-arg=FRAPPE_BRANCH=version-15 \
-  --build-arg=APPS_JSON_BASE64=${APPS_JSON_BASE64} \
   --tag=ghcr.io/mohammedwed/lms:stable \
   --file=frappe_docker/images/layered/Containerfile \
   frappe_docker
+
+rm -f "$APPS_JSON_FILE"
 
 echo ""
 echo "✅ Build complete!"
