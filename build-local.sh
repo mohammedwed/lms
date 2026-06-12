@@ -18,13 +18,14 @@ cat > "$APPS_JSON_FILE" <<EOF
 EOF
 
 echo "Building Docker image..."
-DOCKER_BUILDKIT=1 docker build \
+docker buildx build \
   --no-cache \
   --secret id=apps_json,src="$APPS_JSON_FILE" \
   --build-arg=FRAPPE_PATH=https://github.com/frappe/frappe \
   --build-arg=FRAPPE_BRANCH=version-16 \
   --tag=ghcr.io/mohammedwed/lms:stable \
   --file=frappe_docker/images/layered/Containerfile \
+  --load \
   frappe_docker
 
 rm -f "$APPS_JSON_FILE"
